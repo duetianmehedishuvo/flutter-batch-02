@@ -1,4 +1,4 @@
-const String tableEmployee = 'tbl-employee';
+const String tableEmployee = 'tbl_employee';
 const String columnEmpId = 'column_emp_id';
 const String columnEmpName = 'column_emp_name';
 const String columnEmpAge = 'column_emp_age';

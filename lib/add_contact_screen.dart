@@ -19,6 +19,10 @@ class _AddContactScreenState extends State<AddContactScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
+  // sqlite database   SQL Query
+  // sharedpreferences local csh session 25 MB   KEY and VALUE
+  // Firebase database   PARENT CHILD
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

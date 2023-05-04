@@ -3,11 +3,11 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as Path;
 
 class DatabaseHelper {
-  static const String createTableEmp = '''CREATE TABLE $tableEmployee( 
-  $columnEmpId integer primary key autoincrement, 
-  $columnEmpName text not null, 
-  $columnEmpPhone text not null,
-  $columnEmpAge integer not null );''';
+  static const String createTableEmp = '''CREATE TABLE $tableEmployee ( 
+  $columnEmpId integer primary key autoincrement , 
+  $columnEmpName text not null , 
+  $columnEmpPhone text not null ,
+  $columnEmpAge integer not null ); ''';
 
   static Future<Database> open() async {
     final dbPath = await getDatabasesPath();

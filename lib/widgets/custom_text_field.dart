@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final TextInputType inputType;
 
+  // TextFormField
   @override
   Widget build(BuildContext context) {
     return TextField(
