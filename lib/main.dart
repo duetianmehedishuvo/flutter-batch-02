@@ -4,13 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_world/contact_list_screen.dart';
 import 'package:hello_world/custom_ludo_king_widget.dart';
+import 'package:hello_world/database/pages/add_employee_screens.dart';
 import 'package:hello_world/helper.dart';
 import 'package:hello_world/month_names_list_screen.dart';
 
 void main() {
-  runApp( MaterialApp(
+  runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: ContactListScreen(),
+    home: AddEmployeeScreen(),
   ));
 }
 
@@ -22,13 +23,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  int index=0;
+  int index = 0;
 
   @override
   void initState() {
     setState(() {
-      index=Random.secure().nextInt(6)+1;
+      index = Random.secure().nextInt(6) + 1;
     });
     super.initState();
   }
@@ -44,8 +44,6 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,15 +71,13 @@ class _MyAppState extends State<MyApp> {
 
             CustomLudoKingWidget(index),
 
-            MaterialButton(onPressed: (){
-
-           setState(() {
-             index=Random.secure().nextInt(6)+1;
-
-           });
-
-            },child: Text('Press Here'))
-
+            MaterialButton(
+                onPressed: () {
+                  setState(() {
+                    index = Random.secure().nextInt(6) + 1;
+                  });
+                },
+                child: Text('Press Here'))
           ],
         ),
       ),

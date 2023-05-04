@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/add_contact_screen.dart';
 import 'package:hello_world/contact_db.dart';
-import 'package:hello_world/custom_app_bar.dart';
-import 'package:hello_world/custom_service.dart';
+import 'package:hello_world/widgets/custom_app_bar.dart';
+import 'package:hello_world/widgets/custom_service.dart';
 
 class ContactListScreen extends StatefulWidget {
   const ContactListScreen({Key? key}) : super(key: key);

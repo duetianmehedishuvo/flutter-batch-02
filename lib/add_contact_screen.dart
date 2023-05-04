@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hello_world/contact_db.dart';
 import 'package:hello_world/contact_model.dart';
-import 'package:hello_world/custom_app_bar.dart';
-import 'package:hello_world/custom_message.dart';
-import 'package:hello_world/custom_text_field.dart';
+import 'package:hello_world/widgets/custom_app_bar.dart';
+import 'package:hello_world/widgets/custom_message.dart';
+import 'package:hello_world/widgets/custom_text_field.dart';
 
 class AddContactScreen extends StatefulWidget {
   const AddContactScreen({Key? key}) : super(key: key);
