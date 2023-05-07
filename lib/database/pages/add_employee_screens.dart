@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hello_world/contact_db.dart';
-import 'package:hello_world/contact_model.dart';
 import 'package:hello_world/database/helpers/database_helper.dart';
 import 'package:hello_world/database/models/employee_models.dart';
 import 'package:hello_world/widgets/custom_app_bar.dart';
@@ -9,7 +6,9 @@ import 'package:hello_world/widgets/custom_message.dart';
 import 'package:hello_world/widgets/custom_text_field.dart';
 
 class AddEmployeeScreen extends StatefulWidget {
-  const AddEmployeeScreen({Key? key}) : super(key: key);
+  const AddEmployeeScreen({this.isUpdated = false, this.employeeModel, Key? key}) : super(key: key);
+  final bool isUpdated;
+  final EmployeeModel? employeeModel;
 
   @override
   State<AddEmployeeScreen> createState() => _AddEmployeeScreenState();
@@ -22,9 +21,23 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
   TextEditingController ageController = TextEditingController();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (widget.isUpdated == true) {
+      nameController.text = widget.employeeModel!.name!;
+      phoneController.text = widget.employeeModel!.phone!;
+      ageController.text = widget.employeeModel!.age!.toString();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar2(title: 'Add Contact Screen'),
+      appBar: CustomAppBar2(
+        title: '${widget.isUpdated == true ? "Update" : "Add"} Employee Screen',
+        height: 90,
+      ),
       body: ListView(
         padding: EdgeInsets.all(20),
         children: [
@@ -46,11 +59,15 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                 EmployeeModel employeeModel =
                     EmployeeModel(phone: phoneController.text, name: nameController.text, age: int.parse(ageController.text));
                 int value = await DatabaseHelper.insertEmployee(employeeModel);
-
-                print(value);
+                if (value > 0) {
+                  showToastMessage('Employee inserted successfully', isError: false);
+                  Navigator.of(context).pop(1);
+                } else {
+                  showToastMessage('Data Insert failed');
+                }
               }
             },
-            child: Text('Submit', style: TextStyle(color: Colors.white, fontSize: 19)),
+            child: Text('${widget.isUpdated == true ? 'Update' : "Submit"}', style: TextStyle(color: Colors.white, fontSize: 19)),
             color: Colors.red,
           )
         ],

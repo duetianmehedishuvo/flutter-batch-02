@@ -24,13 +24,19 @@ class DatabaseHelper {
   }
 
   // select
-  static Future<List<EmployeeModel>> getAllEmployees() async {
+
+  // future  async
+  // stream  async*
+
+  static Future<List<EmployeeModel>> getAllEmployeeInformation() async {
     Database db = await open();
-    final List<Map<String, dynamic>> map = await db.query(tableEmployee, orderBy: columnEmpName);
+    // select * from employee; where employeeid=10;
+    // select name from eployee;
     List<EmployeeModel> allEmployees = [];
-    for (var element in map) {
+    List<Map<String, Object?>> allEmployeeData = await db.query(tableEmployee);
+    allEmployeeData.forEach((element) {
       allEmployees.add(EmployeeModel.fromMap(element));
-    }
+    });
     return allEmployees;
   }
 }

@@ -1,32 +1,72 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/add_contact_screen.dart';
+import 'package:hello_world/database/pages/add_employee_screens.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({required this.title, this.fromContactListScreen = false, this.isShowBackButton = true, Key? key}) : super(key: key);
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const CustomAppBar(
+      {required this.title,
+      this.fromContactListScreen = false,
+      this.goForAddEmployeeScreen = false,
+      this.isWorkForFunction = false,
+      this.function,
+      this.isShowBackButton = true,
+      Key? key})
+      : super(key: key);
 
   final String title;
   final bool fromContactListScreen;
   final bool isShowBackButton;
+  final bool goForAddEmployeeScreen;
+  final bool isWorkForFunction;
+  final Function? function;
 
+  @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => Size(double.maxFinite, 53);
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: isShowBackButton
+      leading: widget.isShowBackButton
           ? IconButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
               icon: Icon(Icons.arrow_back))
           : SizedBox.shrink(),
-      title: Text(title),
+      title: Text(widget.title),
       actions: [
-        fromContactListScreen
+        widget.isWorkForFunction
+            ? InkWell(
+                onTap: () {
+                  widget.function!();
+                },
+                child: Text('Click'))
+            : SizedBox(),
+        widget.fromContactListScreen
             ? IconButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(builder: (_) => AddContactScreen()));
                 },
                 icon: Icon(Icons.add))
-            : SizedBox.shrink()
+            : widget.goForAddEmployeeScreen
+                ? IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => AddEmployeeScreen())).then((value) {
+                        print('shuvo   a a a  a a a $value');
+
+                        if (value == 1) {
+                          setState(() {});
+                        }
+                      });
+                    },
+                    icon: Icon(Icons.add))
+                : SizedBox.shrink()
       ],
     );
   }
