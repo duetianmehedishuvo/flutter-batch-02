@@ -58,9 +58,17 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
               } else {
                 EmployeeModel employeeModel =
                     EmployeeModel(phone: phoneController.text, name: nameController.text, age: int.parse(ageController.text));
-                int value = await DatabaseHelper.insertEmployee(employeeModel);
+
+                int value = 0;
+                if (widget.isUpdated) {
+                  employeeModel.id = widget.employeeModel!.id;
+                  value = await DatabaseHelper.updateEmployee(employeeModel);
+                } else {
+                  value = await DatabaseHelper.insertEmployee(employeeModel);
+                }
+
                 if (value > 0) {
-                  showToastMessage('Employee inserted successfully', isError: false);
+                  showToastMessage('Employee ${widget.isUpdated ? "Updated" : "Inserted"} successfully', isError: false);
                   Navigator.of(context).pop(1);
                 } else {
                   showToastMessage('Data Insert failed');

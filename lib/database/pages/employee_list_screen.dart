@@ -43,7 +43,11 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                 children: [
                   MaterialButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => AddEmployeeScreen()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => AddEmployeeScreen())).then((value) {
+                        if (value == 1) {
+                          setState(() {});
+                        } else if (value == null) {}
+                      });
                     },
                     child: Text('Add New Employee'),
                   ),

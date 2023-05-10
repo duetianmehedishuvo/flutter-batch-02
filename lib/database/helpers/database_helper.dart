@@ -39,4 +39,17 @@ class DatabaseHelper {
     });
     return allEmployees;
   }
+
+  // id==10
+
+  static Future<int> updateEmployee(EmployeeModel employeeModel) async {
+    Database db = await open();
+    return db.update(tableEmployee, employeeModel.toMap(), where: '$columnEmpId=?', whereArgs: [employeeModel.id]);
+  }
+
+  static Future<int> deleteEmployee(int id) async {
+    Database db = await open();
+    return db.delete(tableEmployee, where: '$columnEmpId=?', whereArgs: [id]);
+
+  }
 }

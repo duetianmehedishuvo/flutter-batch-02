@@ -4,6 +4,7 @@ const String columnEmpName = 'column_emp_name';
 const String columnEmpAge = 'column_emp_age';
 const String columnEmpPhone = 'column_emp_phone';
 
+
 class EmployeeModel {
   int? id;
   String? name;
@@ -12,10 +13,10 @@ class EmployeeModel {
 
   EmployeeModel({this.phone, this.name, this.id, this.age});
 
-  @override
-  String toString() {
-    return 'EmployeeModel{id: $id, name: $name, phone: $phone, age: $age}';
-  }
+
+  // POST/ PUT
+
+  // GET / DELETE
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{columnEmpName: name, columnEmpAge: age, columnEmpPhone: phone};
