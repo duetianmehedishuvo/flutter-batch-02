@@ -2,17 +2,28 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_world/Provider/cart_provider.dart';
+import 'package:hello_world/Provider/home_screen.dart';
+import 'package:hello_world/Provider/increment_screen.dart';
+import 'package:hello_world/Provider/product_provider.dart';
 import 'package:hello_world/contact_list_screen.dart';
 import 'package:hello_world/custom_ludo_king_widget.dart';
 import 'package:hello_world/database/pages/add_employee_screens.dart';
 import 'package:hello_world/database/pages/employee_list_screen.dart';
 import 'package:hello_world/helper.dart';
 import 'package:hello_world/month_names_list_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: EmployeeListScreen(),
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => ProductProvider()),
+      ChangeNotifierProvider(create: (context) => CartProvider()),
+    ],
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen(),
+    ),
   ));
 }
 

@@ -4,6 +4,10 @@ import 'package:hello_world/database/helpers/database_helper.dart';
 import 'package:hello_world/database/models/employee_models.dart';
 import 'package:hello_world/database/pages/add_employee_screens.dart';
 import 'package:hello_world/database/widgets/employee_widget.dart';
+// provider
+// getx
+// bloc
+
 
 class EmployeeListScreen extends StatefulWidget {
   const EmployeeListScreen({Key? key}) : super(key: key);
@@ -13,6 +17,7 @@ class EmployeeListScreen extends StatefulWidget {
 }
 
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
