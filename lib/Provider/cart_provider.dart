@@ -8,6 +8,10 @@ class CartProvider with ChangeNotifier {
     products.add(p);
     notifyListeners();
   }
+  void removeProduct(int index) {
+    products.removeAt(index);
+    notifyListeners();
+  }
 
   void removeAllProduct() {
     products.clear();
