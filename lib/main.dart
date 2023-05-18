@@ -14,6 +14,7 @@ import 'package:hello_world/database/pages/employee_list_screen.dart';
 import 'package:hello_world/helper.dart';
 import 'package:hello_world/month_names_list_screen.dart';
 import 'package:hello_world/weather_app/page/weather_home_page.dart';
+import 'package:hello_world/weather_app/providers/location_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -21,6 +22,7 @@ void main() {
     providers: [
       ChangeNotifierProvider(create: (context) => ProductProvider()),
       ChangeNotifierProvider(create: (context) => CartProvider()),
+      ChangeNotifierProvider(create: (context) => LocationProvider()),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,

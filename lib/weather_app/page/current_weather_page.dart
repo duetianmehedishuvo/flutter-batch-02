@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/weather_app/providers/location_provider.dart';
+import 'package:provider/provider.dart';
 
 class CurrentWeatherPage extends StatelessWidget {
   const CurrentWeatherPage({Key? key}) : super(key: key);
@@ -6,7 +8,13 @@ class CurrentWeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Current',style: TextStyle(color: Colors.white))),
+      body: Consumer<LocationProvider>(
+        builder: (context,locationProvider,child)=>ListView(
+          children: [
+            Text('${locationProvider.currentWeatherModels.main!.temp} ºC')
+          ],
+        ),
+      ),
     );
   }
 }
