@@ -6,11 +6,21 @@ import 'package:hello_world/weather_app/page/forecast_weather_page.dart';
 import 'package:hello_world/weather_app/providers/location_provider.dart';
 import 'package:provider/provider.dart';
 
-class WeatherHomePage extends StatelessWidget {
+class WeatherHomePage extends StatefulWidget {
+  @override
+  State<WeatherHomePage> createState() => _WeatherHomePageState();
+}
+
+class _WeatherHomePageState extends State<WeatherHomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<LocationProvider>(context, listen: false).initializeUserPosition();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Provider.of<LocationProvider>(context, listen: false).initializeUserPosition();
-
     return DefaultTabController(
       length: 2,
       child: Scaffold(
