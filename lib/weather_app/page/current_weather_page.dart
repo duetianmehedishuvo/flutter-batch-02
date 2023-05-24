@@ -12,7 +12,7 @@ class CurrentWeatherPage extends StatelessWidget {
       body: Consumer<LocationProvider>(
         builder: (context,locationProvider,child)=>ListView(
           children: [
-            Text('${locationProvider.currentWeatherModels.main!.temp} ºC'),
+            Text('${locationProvider.currentWeatherModels.main!.temp}  ${locationProvider.isOpenForCelsius ? "ºC" : "ºF"}'),
             Text('${getFormattedDate(locationProvider.currentWeatherModels.dt as int, "EEEE, MMM d hh:mm a, ''yy")}',style: TextStyle(fontSize: 30),),
           ],
         ),

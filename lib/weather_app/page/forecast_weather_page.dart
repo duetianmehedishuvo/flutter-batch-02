@@ -43,24 +43,32 @@ class ForecastWeatherPage extends StatelessWidget {
                 itemCount: locationProvider.forecastLists.length,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          '${getFormattedDate(locationProvider.forecastLists[index].dt as int, "EEEE, MMM d hh:mm a, ''yy")}',
-                          style: rajdhaniRegular400!.copyWith(fontSize: 18),
-                        ),
-                        forcastRowWidget('Temp: ', '${locationProvider.forecastLists[index].main!.temp} ºC'),
-                        forcastRowWidget('Min Temp: ', '${locationProvider.forecastLists[index].main!.tempMin} ºC'),
-                        forcastRowWidget('Max Temp: ', '${locationProvider.forecastLists[index].main!.tempMax} ºC'),
-                        forcastRowWidget('Humidity: ', '${locationProvider.forecastLists[index].main!.humidity} ºC'),
-                      ],
+                  return InkWell(
+                    onTap: (){
+                      locationProvider.updateUserInfo('Mehedi Hasan Shuvo', '1021212919');
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      margin: EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            '${getFormattedDate(locationProvider.forecastLists[index].dt as int, "EEEE, MMM d hh:mm a, ''yy")}',
+                            style: rajdhaniRegular400!.copyWith(fontSize: 18),
+                          ),
+                          forcastRowWidget('Temp: ',
+                              '${locationProvider.forecastLists[index].main!.temp} ${locationProvider.isOpenForCelsius ? "ºC" : "ºF"}'),
+                          forcastRowWidget('Min Temp: ',
+                              '${locationProvider.forecastLists[index].main!.tempMin} ${locationProvider.isOpenForCelsius ? "ºC" : "ºF"}'),
+                          forcastRowWidget('Max Temp: ',
+                              '${locationProvider.forecastLists[index].main!.tempMax} ${locationProvider.isOpenForCelsius ? "ºC" : "ºF"}'),
+                          forcastRowWidget('Humidity: ', '${locationProvider.forecastLists[index].main!.humidity}'),
+                        ],
+                      ),
                     ),
                   );
                 },

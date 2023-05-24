@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:geocoder2/geocoder2.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hello_world/weather_app/helpers/weather_utils.dart';
 import 'package:hello_world/weather_app/models/current_weather_models.dart';
 import 'package:hello_world/weather_app/models/forecast_weather_model.dart';
 import 'package:http/http.dart' as Http;
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocationProvider with ChangeNotifier {
   Position _position = Position(
@@ -49,7 +51,7 @@ class LocationProvider with ChangeNotifier {
     isLoading = true;
     currentWeatherModels = CurrentWeatherModels();
     String url =
-        'https://api.openweathermap.org/data/2.5/weather?lat=${_position.latitude}&lon=${_position.longitude}&appid=7792f9be1763a0c406c45e4049b1ab58&units=metric';
+        'https://api.openweathermap.org/data/2.5/weather?lat=${_position.latitude}&lon=${_position.longitude}&appid=7792f9be1763a0c406c45e4049b1ab58&units=${isOpenForCelsius ? 'metric' : 'imperial'}';
     try {
       Response response = await Http.get(Uri.parse(url));
       currentWeatherModels = CurrentWeatherModels.fromJson(jsonDecode(response.body));
@@ -72,7 +74,7 @@ class LocationProvider with ChangeNotifier {
     forecastListsTemp.clear();
     forecastListsTemp = [];
     String url =
-        'https://api.openweathermap.org/data/2.5/forecast?lat=${_position.latitude}&lon=${_position.longitude}&appid=7792f9be1763a0c406c45e4049b1ab58&units=metric';
+        'https://api.openweathermap.org/data/2.5/forecast?lat=${_position.latitude}&lon=${_position.longitude}&appid=7792f9be1763a0c406c45e4049b1ab58&units=${isOpenForCelsius ? 'metric' : 'imperial'}';
     try {
       Response response = await Http.get(Uri.parse(url));
       jsonDecode(response.body)['list'].forEach((element) {
@@ -100,7 +102,6 @@ class LocationProvider with ChangeNotifier {
       for (var element in forecastListsTemp) {
         print('khan  $value ${element.main!.humidity}  ${element.main!.humidity as int <= int.parse(value)}');
         if (int.parse(value) > 0 && element.main!.humidity as int <= int.parse(value)) {
-
           print('shuvo $element');
 
           forecastLists.add(element);
@@ -108,6 +109,47 @@ class LocationProvider with ChangeNotifier {
       }
       notifyListeners();
     }
+  }
+
+  void searchCityPosition() async {
+    GeoData data = await Geocoder2.getDataFromAddress(address: 'dhaka', googleMapApiKey: "AIzaSyDzOwSmMbs9aTvU5wx6mrDgeldGmGe-1BE");
+
+    print(data.city);
+  }
+
+  bool isOpenForCelsius = false;
+
+  void changeTempValue(bool status) async {
+    isOpenForCelsius = status;
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool('temp', status);
+    notifyListeners();
+    getCurrentWeather();
+  }
+
+  void getTempValue() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    isOpenForCelsius = sharedPreferences.getBool('temp') ?? false;
+  }
+
+  updateUserInfo(String name, String phone) async {
+    isLoading = true;
+    notifyListeners();
+    String url = 'https://www.arun.doictstore.org/api/suppliers';
+
+    var userData = {"location_id": 1, "name": name, "email": "abcd@gmail.com", "phone": phone, "status": 1};
+
+    try {
+      Response response = await Http.put(Uri.parse(url),
+          body: jsonEncode(userData),
+          headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer 4|ipBIxmsyWMVFY08tZBQkJHYCDerhbSFokefpcH8i'});
+
+      print(response.body);
+    } catch (e) {
+      throw e;
+    }
+    isLoading = false;
+    notifyListeners();
   }
 }
 

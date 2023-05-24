@@ -45,6 +45,7 @@ dependencies:
   shared_preferences: ^2.1.1
   permission_handler: ^10.2.0
   intl: ^0.18.1
+  geocoder2: ^1.4.0
 
 dev_dependencies:
   flutter_test:
